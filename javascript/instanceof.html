@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>instanceof</title>
+</head>
+
+<body>
+  <pre>
+      instanceof运算符用于测试构造函数的prototype属性是否出现在对象的原型链中的任何位置
+      参数
+        要检测的对象 instanceof 构造函数
+      返回值
+        true false
+
+      用来检测是不是特定构造函数的实例
+
+  </pre>
+  <script>
+    function Person() {
+      this.name = 'name';
+    }
+    var person1 = new Person(),
+      person2 = {};
+    person1 instanceof Person; //true
+    person2 instanceof Person; //false
+    person1 instanceof Object; //true
+    Person instanceof Function; //true
+  </script>
+
+</body>
+
+</html>

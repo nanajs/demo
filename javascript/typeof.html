@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>typeof</title>
+</head>
+
+<body>
+  <pre>
+      typeof操作符返回一个字符串，表示未经计算的操作数的类型。
+      参数
+        operand 是一个表达式，表示对象或原始值，其类型将被返回。
+        括号是可选的。
+      返回值：
+      "undefined"、"number"、'boolean'、'string'、'symbol'、"function"、"object"
+  </pre>
+  <script>
+    //undefined
+    console.log(typeof no); //Null、undefined、未定义的变量
+    typeof no === 'undefined';
+    typeof Null === 'undefined';
+    typeof undefined === 'undefined';
+    //违反规则，例外
+    typeof document.all === 'undefined';
+
+    //number
+    console.log(typeof 12); // "number";
+    typeof 12 === 'number';
+    typeof Math.E === 'number';
+    typeof NaN === 'number';
+    typeof Infinity === 'number';
+
+    //boolean
+    typeof true === 'boolean';
+    typeof false === 'boolean';
+
+    //string
+    typeof 'ss' === 'string';
+    typeof (typeof s) === 'string'; //typeof返回值是一个字符串
+
+    //symbol
+    typeof Symbol() === 'symbol';
+    typeof Symbol('s') === 'symbol';
+    typeof Symbol.iterator === 'symbol';
+
+    //function
+    console.log(typeof Boolean); //Number、Boolean、String、Symbol "function"
+
+    //object   使用new操作符
+    console.log(typeof {});
+    console.log(typeof []);
+    console.log(typeof null);
+
+    /* 注意，用typeof判断正则表达式时
+    chrome 1-12返回function
+    Fire 5+返回object 符合ECMAScript5.1*/
+
+    /*
+    暂存死区
+      除了非提升，块作用域的let和const之外，在声明之前对块中的变量使用typeof会抛出一个ReferenceError。这与未声明的变量形成对比，typeof会返回“undefined”
+      typeof s;let s;
+    */
+  </script>
+</body>
+
+</html>
