@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>$log</title>
+</head>
+
+<body ng-app="app" ng-controller="ctrl">
+  <code>
+    $log和console.log区别
+    1.$log会检查浏览器是否支持console.log，这样避免浏览器不支持console.log而报异常。
+    2.可以开关控制log $logProvider.debugEnabled(false)
+    3.可以格式化错误信息
+  </code>
+  <script src="./lib/angular.js"></script>
+  <script>
+    angular.module('app', []).controller('ctrl', function ($log) {
+      $log.log('打印日志消息');
+      $log.info('打印信息消息');
+      $log.warn('打印警告消息');
+      $log.error('打印错误消息');
+      $log.debug('打印调试消息');
+    }).config(function ($logProvider) {
+      console.log($logProvider);
+      $logProvider.debugEnabled(true);
+    });
+  </script>
+</body>
+
+</html>
