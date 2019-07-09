@@ -34,11 +34,28 @@ mtk/   过滤对应的文件夹，路径中含有mtk就被忽略
 
  *.[oa]    支持通配符：过滤repo中所有以.o或者.a为扩展名的文件
 
-##### 对应参考文档
+#### 什么是 glob 匹配模式？
+
+- shell 所使用的简化了的正则表达式
+
+1. 通配符：
+   - 星号（*）匹配零个或多个任意字符
+   - 使用两个星号（*) 表示匹配任意中间目录，`a/**/b` 可以匹配 a/b, a/c/b 或 `a/c/d/b`等
+   - ?只匹配一个任意字符
+2. 字符集
+   - [abc] 匹配任何一个列在方括号中的字符
+3. 字符范围
+   - [?-?] 表示匹配两个字符范围内的字符，如[1-8]表示数字1-8都可以
+4. 字符取反
+   - [abc] 匹配任何一个列在方括号之外的字符
+
+#### 对应参考文档
 
 [ignoring-files](https://help.github.com/en/articles/ignoring-files/<https://help.github.com/cn/articles/ignoring-files)
 
 [gitignore.io](https://www.gitignore.io/)
 
 [docs/gitignore](https://git-scm.com/docs/gitignore)
+
+[github/gitignore](https://github.com/github/gitignore)
 
