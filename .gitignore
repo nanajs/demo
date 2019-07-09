@@ -1,0 +1,4 @@
+# 过滤所有node_modules文件
+node_modules/
+# * 表示过滤某种类型的文件
+*.7z

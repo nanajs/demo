@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    window.onload = function () {
+      var input = document.getElementById('input');
+      var div = document.getElementById('div');
+      input.oninput = function () {
+        div.innerHTML = input.value;
+      }
+    };
+  </script>
+</head>
+
+<body ng-app='myapp' ng-controller="ctrl">
+  <input id="input" type="text">
+  <div id="div"></div>
+
+  <input type="text" ng-model="a">
+  <div ng-bind="getNum(a)"></div>
+  <script src="./lib/angular.js"></script>
+  <script>
+    //定义模块应用
+    var app = angular.module('myapp', []);
+    //定义控制器应用
+    app.controller('ctrl', function ($scope, $logProvider, $log) {
+      // $scope相当于作用域，控制范围，用来保护VM对象
+      $scope.getNum = function (num) {
+        return num * 2;
+      };
+      $scope.a = 12;
+      console.log($logProvider);
+      // console.log($log)
+      // $log.log(12);
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>$http</title>
+</head>
+
+<body ng-app="app" ng-controller="ctrl">
+  <code>
+
+  </code>
+  <script src="./lib/angular.js"></script>
+  <script>
+    angular.module('app', []).controller('ctrl', function ($http, $log) {
+      $log.log($http);
+      console.log($http.defaults);
+      //设置http请求缓存
+      $http.defaults.cache = true / false;
+      console.log($http.defaults.cache)
+      //单请求配置
+      // $http({
+      //   method: "POST",
+      //   url: "url",
+      //   headers: {
+      //     "Content-Type": '' // 重新设置请求头your config”
+      //   },
+      //   data: {
+      //     data: "" // your data”
+      //   }
+      // })
+    }).config(function ($httpProvider) {
+      //全局配置
+      console.log($httpProvider)
+    });
+  </script>
+</body>
+
+</html>
