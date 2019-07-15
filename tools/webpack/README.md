@@ -13,3 +13,22 @@
 
 #### demo2
 
+打包中的各种依赖lodash   npm install --save lodash
+
+- css、image、js、字体等
+
+结果： 页面正常显示，无报错
+
+使用：
+
+- 安装依赖 npm install
+- npm run build
+
+#### demo3
+
+打包中的各种插件
+
+# 开发
+
+
+
