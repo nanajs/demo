@@ -1,0 +1,329 @@
+### length 
+
+- 返回或者设置一个数组中的元素个数
+
+>  值为 0 到 2<sup>32</sup>-1 的整数
+>
+> 可以设置length属性的值来截断任何数组，当扩展时，扩展的元素值为undefined
+
+~~~javascript
+	var a = [1,2];
+    console.log(a.length);//2
+
+    增加length
+    var person = ['ss','dd'];
+    person.length = 5;
+    console.log(person); // ['ss', 'dd']
+    console.log(person.length); // 5
+
+    减少length,将对应元素值也删除
+    var person = ['ss', 'dd','ff','gg','ee'];
+    person.length = 2;
+    console.log(person); // ['ss', 'dd']
+    console.log(person.length); // 2
+
+    Array.length属性的属性特性
+    Writable(true)：如果设置为false，该属性值将不能被修改。
+    Configurable(false)：如果设置为false，删除或更改任何属性都将会失败。
+    Enumerable(false)：如果设置为 true ，属性可以通过迭代器for或for...in进行迭代。
+    var person = ['ss', 'dd','ff','gg','ee'];
+    Object.defineProperty(person,"length",{writable:false});
+    person.length = 2;
+    console.log(person); // ['ss', 'dd','ff','gg','ee']
+    console.log(person.length); // 5
+    console.log(person[3]); //'gg'
+~~~
+
+### prototype
+
+-  表示 Array 构造函数的原型，并允许您向所有Array对象添加新的属性和方法
+
+~~~javascript
+Symbol属性 @@unscopable 包含了所有 ES2015 (ES6) 中新定义的且并未被更早的 ECMAScript 标准收纳的属性名
+Object.keys(Array.prototype[Symbol.unscopables])
+// ["copyWithin", "entries", "fill", "find", "findIndex", "flat", "flatMap", "includes", "keys", "values"]
+~~~
+
+### Array.from()
+
+- 从一个类似数组或可迭代对象中创建一个新的，浅拷贝的数组实例。
+
+> Array.from(arrayLike[, mapFn[, thisArg]])
+>
+> - 参数：
+>
+>   - arrayLike(不能为undefined、null)
+>
+>     伪数组对象（拥有一个 length 属性和若干索引属性的任意对象）
+>
+>     可迭代对象（可以获取对象中的元素,如 Map和 Set 等）
+>
+>   - mapFn(可选参数)
+>
+>     如果指定了该参数，新数组中的每个元素会执行该回调函数。
+>
+>     相当于Array.from(obj).map(mapFn, thisArg)
+>
+>   - thisArg (可选参数)
+>
+>   ​        可选参数，执行回调函数 mapFn 时 this 对象。
+>
+> - 返回值：一个新的数组实例
+
+~~~javascript
+Array.from.length === 1
+
+// 参数为string时
+Array.from('123'); // ["1", "2", "3"]
+// 参数为Set时
+Array.from(new Set(['12', 23])) //["12", 23]
+// 参数为Map时
+let m = new Map([
+  [1, 2],
+  [2, 4],
+  [4, 8]
+]);
+Array.from(m); // [[1, 2], [2, 4], [4, 8]]
+
+Array.from(['a', 's', 'd'], (v, i) => v + i)
+//["a0", "s1", "d2"]
+
+Array.from({
+  length: 5
+}, (v, i) => v)
+// [undefined, undefined, undefined, undefined, undefined]
+
+数组去重
+Array.from(new Set(arr))
+~~~
+
+ ### Array.isArray()
+
+- 判定一个值是不是Array
+
+> Object.prototype.toString.call(arg) === '[object Array]';
+>
+> 参数：可选
+>
+> 返回值：true  |  false
+
+```javascript
+// 当检测Array实例时, Array.isArray 优于 instanceof,因为Array.isArray能检测iframes.
+// true
+Array.isArray([]);
+Array.isArray(Array.prototype);
+// false
+Array.isArray();
+Array.isArray(null);
+Array.isArray(undefined);
+Array.isArray({});
+Array.isArray('');
+Array.isArray(123);
+```
+### Array.of()
+
+- 创建一个具有可变数量参数的新数组实例，而不考虑参数的数量或类型
+
+> 相当于：Array.prototype.slice.call(arguments);
+>
+> 参数：随意
+>
+> 返回值：新的Array实例
+
+```javascript
+ Array.of(7);// [7]
+ Array.of([],[12]) // [[],[12]]
+ Array.of(undefined); // [undefined]
+```
+### Array.prototype.concat()
+
+- 合并两个或多个数组。不会更改现有数组
+
+> arr.concat(arr1,arr2,arr3……)
+>
+> 参数：可选
+>
+> 返回值：一个新的数组
+
+```javascript
+//concat方法不会改变this或任何作为参数提供的数组，而是返回一个浅拷贝，它包含与原始数组相结合的相同元素的副本。 原始数组的元素将复制到新数组中，如下所示：
+//对象引用（而不是实际对象）：concat将对象引用复制到新数组中。 原始数组和新数组都引用相同的对象。 也就是说，如果引用的对象被修改，则更改对于新数组和原始数组都是可见的。 这包括也是数组的数组参数的元素。
+//数据类型如字符串，数字和布尔（不是String，Number 和 Boolean 对象）：concat将字符串和数字的值复制到新数组中。
+    var person1 = ['n1', 'n2'];
+    var person2 = ['n3', 'n2'];
+    var person3 = person1.concat(person2);
+    person1[0] = 'n0';
+    console.log(person1); // ["n0", "n2"]
+    console.log(person3); // ["n1", "n2", "n3", "n2"]
+
+    var person1 = ['n1', ['n2']];
+    var person2 = ['n3'];
+    var person3 = person1.concat(person2);
+    person1[1][1] = 'n0';
+    console.log(person1); // ["n1", ["n2", "n0"]]
+    console.log(person3); // ["n1", ["n2", "n0"], "n3"]
+
+    var person1 = ['n1'];
+    var person3 = person1.concat(undefined); // ["n1",undefined]
+```
+### Array.prototype.copyWithin()
+
+- 浅复制数组的一部分到同一数组中的另一个位置，并返回它，不会改变原数组的长度
+
+> arr.copyWithin(target[, start[, end]])
+>
+> 参数：
+>
+> - target:0 为基底的索引，复制序列到该位置。如果是负数，target 将从末尾开始计算。
+>
+>   如果 target 大于等于 arr.length，将会不发生拷贝。如果 target 在 start 之后，复制的序列将被修改以符合 arr.length
+>
+> - start: 0 为基底的索引，开始复制元素的起始位置。如果是负数，start 将从末尾开始计算。
+>
+>   如果 start 被忽略，copyWithin 将会从0开始复制
+>
+> - end: 0 为基底的索引，开始复制元素的结束位置。copyWithin 将会拷贝到该位置，但不包括 end 这个位置的元素。如果是负数， end 将从末尾开始计算
+>
+>   如果 end 被忽略，copyWithin 方法将会一直复制至数组结尾（默认为 arr.length）
+>
+> 返回值：改变后的数组
+
+```javascript
+let numbers = [1, 2, 3, 4, 5];
+numbers.copyWithin(0, 3, 4); // [4, 2, 3, 4, 5]
+```
+### Array.prototype.entries()
+
+- 一个新的Array Iterator对象，该对象包含数组中每个索引的键/值对
+
+> arr.entries();
+
+```javascript
+var arr = ["a", "b", "c"];
+var iterator = arr.entries();
+console.log(iterator.next()); //{value: Array(2), done: false}
+// 二维数组按行排序，在原数组改动
+//  1. 使用entries
+function sortArr(arr) {
+  var goNext = true;
+  var entries = arr.entries();
+  while (goNext) {
+    var result = entries.next();
+    if (result.done !== true) {
+      result.value[1].sort((a, b) => a - b);
+      goNext = true;
+    } else {
+      goNext = false;
+    }
+  }
+  return arr;
+}
+// 1. 使用for……of循环
+function sortArr(arr) {
+  for (let item of arr) {
+    item.sort((a, b) => a - b);
+  }
+  return arr;
+}
+```
+### Array.prototype.every()
+
+- 测试一个数组内的所有元素是否都能通过某个指定函数的测试
+
+> arr.every(function(val, ind, arr){}，thisArg)
+>
+> 返回值：Boolean
+>
+> 碰到第一个不符合的val时，返回false，都符合时返回false;
+
+```javascript
+var a = [1, 2, 3].every(function (val, ind, arr) {
+  console.log(val, ind, arr);
+  return val > 0;
+})
+console.log(a); //true
+```
+### Array.prototype.fill()
+
+- 一个固定值填充一个数组中从起始索引到终止索引内的全部元素。不包括终止索引。
+
+> arr.fill(value,start,end);
+>
+> 参数：value填充数组元素的值
+>
+> - start起始索引，默认0；为负数时索引变为length+start;超出length,则不改变
+> - end终止索引，默认this.length；为负数时索引变为length+end;超出length,则不改变
+> - start没有end大时，不改变
+>
+> 返回值：修改后的数组
+
+```javascript
+[].fill.call({
+  length: 3
+}, 4); // {0: 4, 1: 4, 2: 4, length: 3}
+
+// Objects by reference.
+var arr = Array(3).fill({}) // [{}, {}, {}];
+arr[0].hi = "hi"; // [{ hi: "hi" }, { hi: "hi" }, { hi: "hi" }]
+```
+### Array.prototype.filter()
+
+- 创建一个新数组, 其包含通过所提供函数实现的测试的所有元素
+
+> arr.filter(fn(value,index,arr),thisArg);
+>
+> 参数：thisArg改变fn中的this指向
+>
+> 返回值：一个新的、由通过测试的元素组成的数组，如果没有任何数组元素通过测试，则返回空数组。
+
+```javascript
+var a = [1, 2, 3].filter(function (val, ind, arr) {
+  console.log(val, ind, arr);
+  console.log(this); // [23]
+  return val > 0;
+}, [23])
+```
+### Array.prototype.find()
+
+- 返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined
+
+> arr.find(fn(el,index,arr),thisArg)
+
+```javascript
+var a = [1, 2, 3].find(function (val, ind, arr) {
+  return val > 0;
+})
+console.log(a); // 1
+```
+### Array.prototype.findIndex()
+
+- 返回数组中满足提供的测试函数的第一个元素的索引。否则返回-1
+
+> arr.findIndex(fn(el,index,arr),thisArg)
+
+```javascript
+var a = [1, 2, 3].findIndex(function (val, ind, arr) {
+  console.log(val, ind, arr)
+  return val > 2;
+})
+console.log(a); // 2
+```
+### Array.prototype.flat()
+
+- 会按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回
+
+> var newArray = arr.flat(depth)
+>
+> 参数：可选；结构深度，默认值为 1
+>
+> 返回值：一个包含将数组与子数组中所有元素的新数组
+>
+> 注：会移除数组中的空项
+
+```javascript
+[1,2,['',3,['',4]]].flat(1);// [1, 2, "", 3, Array(2)]
+[,,[,,]].flat();// []
+```
+
+
+

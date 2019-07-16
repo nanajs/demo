@@ -139,6 +139,12 @@ $HTTP API 是基于 $q服务暴露的deferred/promise APIs
 
 配置请求头在**$httpProvider.defaults.headers**里面
 
+#### $digest
+
+#### $apply()
+
+
+
 ### 模块
 
 - 创建模块：var app = angular.module('模块名',[])
