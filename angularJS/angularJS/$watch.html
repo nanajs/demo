@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>$watch</title>
+  <script src="./lib/angular.js"></script>
+</head>
+
+<body>
+  <div ng-app="myApp" ng-controller="demoCtrl">
+    <div ng-repeat="item in demoArray track by $index">
+      <span>{{item.id}}</span>
+      <input type="text" ng-model="item.value">
+    </div>
+    <table>
+      <thead>
+        <th></th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in demoArray track by $index">
+          <td ng-bind="item.id"></td>
+          <td ng-bind="item.value"></td>
+        </tr>
+      </tbody>
+    </table>
+    <code>attr="name{{name}}"</code>
+    <div foo="false"></div>
+  </div>
+  <script>
+    var app = angular.module('myApp', [])
+    app.controller('demoCtrl', function ($scope) {
+      $scope.demoArray = [{
+        id: 1,
+        value: 'one'
+      }, {
+        id: 2,
+        value: 'two'
+      }];
+      // $watch可以监视数据模型的变化
+      //第一个参数：数据模型对应的名字，（字符串形式）或者一个函数
+      //也能够监视$scope.属性方法中的返回值
+      //$watch监视的是$scope中的属性，如果是一个普通变量是无法监视的
+      // 第二个参数，相应的数据模型发生变化就会调用这个函数
+      //默认会直接执行一次回掉函数，第一次值是相等的
+      // 第三个参数 ；Angular是否检查严格相等
+      $scope.value = 'name';
+
+      // 监听字符串
+      $scope.$watch('value', function (now, old, scope) {
+        //第一个参数是变化后的值
+        //第二个参数是变化前的值
+        $scope.blur = function () {
+          if (now !== old) {
+            console.log('different');
+            // 初始化之后发生的变化
+          } else {
+            // 只会在监控器初始化阶段运行
+          }
+        }
+      });
+
+      // 监听数组
+
+      var a = $scope.$watch(function () {
+        return $scope.demoArray;
+      }, function (newV, oldV) {
+        a();
+      }, true);
+
+
+
+      $scope.attrs = {
+        foo: false
+      }
+      attrs = {
+        foo: true
+      }
+
+      // $observe
+      // attrs.$watch(function () {
+      //   return attr;
+      // }, function (newV, oldV) {
+      //   a = null;
+      //   console.log(newV);
+      //   console.log(oldV);
+      // }, true)
+      $scope.$watchCollection(function () {
+        return $scope.demoArray;
+      }, function (newV, oldV, v, b) {
+        console.log(newV);
+        console.log(oldV);
+        console.log(v);
+        console.log(b);
+      });
+    })
+  </script>
+</body>
+
+</html>

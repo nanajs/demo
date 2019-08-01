@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    hr:nth-child(1) {
+        border: 0;
+        border-top: 5px solid red;
+    }
+    hr:nth-child(2) {
+        border: 0;
+        border-top: 5px dotted #f11c72;
+    }
+    hr:nth-child(3) {
+        border: 0;
+        border-top: 5px dashed #dd62d7;
+    }
+    hr:nth-child(4) {
+        border: 0;
+        border-top: 5px double #8836af;
+    }
+    hr:nth-child(5) {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-top: 32px double #245910;
+        border-right: 32px double #32af5c;
+        border-bottom: 32px double #b2bc30;
+        border-left: 32px double #292d9f;
+    }
+    hr:nth-child(6) {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-top: 32px dashed #245910;
+        border-right: 32px dashed #32af5c;
+        border-bottom: 32px dashed #b2bc30;
+        border-left: 32px dashed #292d9f;
+    }
+    hr:nth-child(7) {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-top: 32px dotted #245910;
+        border-right: 32px dotted #32af5c;
+        border-bottom: 32px dotted #b2bc30;
+        border-left: 32px dotted #292d9f;
+    }
+    #circle {
+        width: 64px;
+        height: 64px;
+        background-color: red;
+    }
+    #circle hr {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-top: 32px dotted #fff;
+        border-right: 32px dotted  #fff;
+        border-bottom: 32px dotted  #fff;
+        border-left: 32px dotted  #fff;
+    }
+    .line hr {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-top: 25px dotted #245910;
+        border-right: 50px dotted #32af5c;
+        border-bottom: 25px dotted #b2bc30;
+        border-left: 26px dotted #292d9f;
+    }
+    
+    </style>
+</head>
+<body>
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <div id="circle">
+        <hr />
+    </div>
+    
+    <div class="line">
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+    </div>
+</body>
+</html>
