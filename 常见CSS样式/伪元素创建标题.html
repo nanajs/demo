@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>伪元素创建标题</title>
+  <style>
+  .top-line {
+    border-top: 10px solid #ff4400;
+    position: relative;
+  }
+  .title2 {
+    position: absolute;
+    top: 0;
+    left: 100px;
+    width: 80px;
+    height: 40px;
+    text-align: center;
+    line-height: 30px;
+    background-color: #ff4400;
+  }
+  .title2::after {
+    content: "";
+    position: absolute;
+    top: 40px;
+    left: 0;
+    border-top: 20px solid #ff4400;
+    border-left: 40px solid #ff4400;
+    border-right: 40px solid #ff4400;
+    border-bottom: 20px solid transparent;
+  }
+  </style>
+</head>
+<body>
+  <div class="top-line">
+      <div class="title1">菜单1</div>
+      <div class="title2">菜单2</div>
+  </div>
+</body>
+</html>

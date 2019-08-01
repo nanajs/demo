@@ -28,13 +28,12 @@
     //定义模块应用
     var app = angular.module('myapp', []);
     //定义控制器应用
-    app.controller('ctrl', function ($scope, $logProvider, $log) {
+    app.controller('ctrl', function ($scope, $log) {
       // $scope相当于作用域，控制范围，用来保护VM对象
       $scope.getNum = function (num) {
         return num * 2;
       };
       $scope.a = 12;
-      console.log($logProvider);
       // console.log($log)
       // $log.log(12);
     })
