@@ -1,5 +1,5 @@
 {
-  "app.js": "app.js",
-  "print.js": "print.js",
+  "app.js": "app.main.js",
+  "print.js": "print.main.js",
   "index.html": "index.html"
 }

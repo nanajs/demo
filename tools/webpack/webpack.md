@@ -8,6 +8,7 @@
 
 1. 能够处理js文件的相互依赖关系
 2. Webpack能够处理js的兼容问题，把高级的，浏览器不识别的代码，转化为低级的，浏览器能识别的语法
+3. 打包，支持模块化
 
 ## webpack 打包过程
 
@@ -26,6 +27,12 @@
    - 在项目根目录中运行`npm i webpack --save-dev`安装到项目依赖中
 
 4. 随意建立文件，使用webpack 文件名.js  >  默认打包到dist文件夹下的main.js
+
+### 改变webpack.config.js文件名
+
+package.json配置`script: {build:webpack --config webpack.my.js}`
+
+`npm run build --(配置参数) --config webpack --config webpack.my.js`
 
 ### 实现webpack的实时打包构建
 
@@ -171,10 +178,13 @@ output: {
 - 配置config
 
   ~~~
+  // 这将会产生一个包含以下内容的文件 dist/index.html：
   const HtmlWebpackPlugin = require('html-webpack-plugin');
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Output Management'
+      title: 'Output Management' // string 用于生成的HTML文档的标题
+      filename: "ss" // string 要将HTML写入的文件。默认为index.html。您也可以在这里指定一个子目录（例如：assets/admin.html）
+      // https://github.com/jantimon/html-webpack-plugin#configuration
     })
   ],
   ~~~
@@ -201,6 +211,12 @@ output: {
   ~~~
   new ManifestPlugin()
   ~~~
+
+##### [webpack-dev-server](https://github.com/webpack/webpack-dev-server)热开发
+
+
+
+
 
 ####  resolve options解析选项
 

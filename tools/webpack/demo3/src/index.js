@@ -4,7 +4,7 @@ function component() {
   var element = document.createElement('div');
   var btn = document.createElement('button');
 
-  element.innerHTML = ['Hello', 'webpack'].join(' ');
+  element.innerHTML = ['Hello', 'webpack'].join(' - ');
 
   btn.innerHTML = 'Click me and check the console!';
   btn.onclick = printMe;
@@ -13,5 +13,6 @@ function component() {
 
   return element;
 }
+console.log($);
 
 document.body.appendChild(component());

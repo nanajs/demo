@@ -3,11 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = {
-  devServer: { // 开发服务器的配置
-    port: 8080, //端口
-    progress: true, // 进度条
-    contentBase: './build' // 默认
-  },
   mode: 'development',
   entry: {
     app: './src/index.js',

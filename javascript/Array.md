@@ -120,6 +120,8 @@ Array.isArray({});
 Array.isArray('');
 Array.isArray(123);
 ```
+[严格判定JavaScript对象是否为数组](http://web.mit.edu/jwalden/www/isArray.html)。
+
 ### Array.of()
 
 - 创建一个具有可变数量参数的新数组实例，而不考虑参数的数量或类型
