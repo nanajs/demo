@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JSON</title>
+</head>
+
+<body>
+  <script>
+    var person = {
+      name: '高兴',
+      age: 23,
+      addr: null,
+      hobit: undefined,
+      say: function () {
+        return this.name;
+      },
+      date: new Date(),
+      arr: ['hello', 'say']
+    };
+
+    // 序列化对象
+    // 会忽略函数及原型成员，undefined也会被忽略
+    var obj1 = JSON.stringify(person);
+    console.log(obj1);
+    //{"name":"高兴","age":23,"addr":null,"date":"2019-09-05T15:26:07.316Z","arr":["hello","say"]}
+
+    // 序列化参数
+    // 过滤
+    var filterObj = JSON.stringify(person, ['name', 'age']);
+    console.log(filterObj);
+    // {"name":"高兴","age":23}
+    var filterObjFn = JSON.stringify(person, function (key, val) {
+      // val对应obj
+      switch (key) {
+        case 'age':
+          return val * 2;
+        default:
+          return val;
+      }
+    });
+    console.log(filterObjFn);
+    // {"name":"高兴","age":46,"addr":null,"date":"2019-09-05T15:33:16.204Z","arr":["hello","say"]}
+
+    // 字符串缩进
+    // 空格缩进  最大缩进空格数为 10，所有大于 10 的值都会自动转换为 10。
+    console.log(JSON.stringify(person, null, 4));
+    /* {
+      "name": "高兴",
+      "age": 23,
+      "addr": null,
+      "date": "2019-09-05T15:34:40.324Z",
+      "arr": [
+        "hello",
+        "say"
+      ]
+    } */
+    // 字符串缩进 最大缩进字符串为 10，所有大于 10 的值都会自动转换为 10。
+    console.log(JSON.stringify(person, null, '-'));
+    /*  {
+      -"name": "高兴",
+      -"age": 23,
+      -"addr": null,
+      -"date": "2019-09-05T15:35:16.081Z",
+      -"arr": [
+        --"hello",
+        --"say" -
+      ]
+    } */
+
+    var date = {
+      date: new Date(),
+      toJSON: function () { // 返回原数据格式
+        return this.date;
+      }
+    }
+    var jsonText = JSON.stringify(date);
+    console.log(jsonText); // {}
+
+
+    // 解析选项
+    var jsonText1 = JSON.parse(jsonText);
+    console.log(jsonText1); //{}
+    var dateV = {
+      date: new Date(),
+      title: "date"
+    }
+    // 解析选项
+    var jsonText2 = JSON.parse(JSON.stringify(dateV), function (key, val) {
+      switch (key) {
+        case 'date':
+          return new Date(val);
+        default:
+          return val;
+      }
+    });
+    console.log(jsonText2.date.getTime()); //1567698574107
+  </script>
+
+</body>
+
+</html>

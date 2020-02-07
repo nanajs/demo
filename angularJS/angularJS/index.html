@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" ng-controller="myCtrl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>AngularJS DEMO</title>
+</head>
+
+<body ng-app="myApps">
+  <div>
+    <ul>
+      <li><a href="#/scope">School Buddy</a></li>
+    </ul>
+    <ng-view></ng-view>
+  </div>
+  <script type="text/javascript">
+    (function () {
+      var headEl = document.getElementsByTagName('head')[0];
+
+      /* 首页引入文件 */
+      function addTag(name, attribute, sync) {
+        var el = document.createElement(name);
+        for (attriName in attribute) {
+          el.setAttribute(attriName, attribute[attriName]);
+        }
+        sync ? document.write(outerHTML(el)) : headEl.appendChild(el);
+      }
+
+      function outerHTML(node) {
+        // if IE, Chrome take the internal method otherwise build one
+        return node.outerHTML || (
+          function (n) {
+            var div = document.createElement('div'),
+              h;
+            div.appendChild(n);
+            h = div.innerHTML;
+            div = null;
+            return h;
+          })(node);
+      }
+      addTag('link', {
+        rel: 'stylesheet',
+        href: 'css/animations.css',
+        type: 'text/css'
+      });
+      addTag('script', {
+        src: './lib/angular.js'
+      }, sync);
+      addTag('script', {
+        src: './lib/angular-route.min.js'
+      }, sync);
+      addTag('script', {
+        src: './main.js'
+      }, sync);
+    })
+  </script>
+
+</body>
+
+</html>
