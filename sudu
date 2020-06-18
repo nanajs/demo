@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let demoArr = [
+      ["5", "3", ".", ".", "7", ".", ".", ".", "."],
+      ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+      [".", "9", "8", ".", ".", ".", ".", "6", "."],
+      ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+      ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+      ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+      [".", "6", ".", ".", ".", ".", "2", "8", "."],
+      [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+      [".", ".", ".", ".", "8", ".", ".", "7", "9"]
+    ]
+    // 定义一个构造函数，判断是否执行
+    function Sudoku() {
+      this.ok = false;
+      this.emptyStr = this.emptyStr || '0';
+      this.rowTableSize = this.rowTableSize || 3;
+    };
+
+    Sudoku.prototype = {
+      init: function (sdArr) { // 初始化
+        // 判断是否为数组
+        if (!(sdArr instanceof Array)) {
+          console.log('参数为错误数组');
+          return true;
+        }
+        this.ok = false;
+        // 计算
+        this.count(sdArr);
+      },
+      count: function (sdArr) {
+        if (this.ok) {
+          console.table(sdArr);
+          return;
+        }
+        this.ok = true;
+        for (var i = sdArr.length - 1; i >= 0; i--) {
+          var cRow = sdArr[i]; // 所在行
+          for (var j = cRow.length - 1; j >= 0; j--) {
+            var cCell = sdArr[i][j]; // 每个格子
+            if (cCell === this.emptyStr || cCell instanceof Array) {
+              this.ok = false;
+              cCol = this.getCcol(j, sdArr);
+              box = this.getBox({
+                x: i,
+                y: j
+              }, sdArr);
+              sdArr[i][j] = cCell = this.getCandidate(cRow, cCol, box);
+            }
+          };
+        };
+        this.count(sdArr);
+      },
+      //获得所在列的集合
+      getCcol: function (col, arr) {
+        let newArr = [];
+        for (var i = arr.length - 1; i >= 0; i--) {
+          newArr.push(arr[i][col]);
+        };
+        return newArr;
+      },
+      //获得3*3宫格的集合
+      getBox: function (target, arr) {
+        let newArr = [],
+          size = this.rowTableSize;
+        getMax = function (num) {
+            return Math.ceil((num + 1) / size) * size - 1;
+          },
+
+          getMin = function (num) {
+            return Math.floor(num / size) * size;
+          };
+        // Math.floor(target.y / 3) * 3 + Math.floor(target.y / 3) + 1
+        for (let i = getMin(target.x); i <= getMax(target.x); i++) {
+          for (let j = getMin(target.y); j <= getMax(target.y); j++) {
+            newArr.push(arr[i][j]);
+          }
+        }
+        return newArr;
+      },
+
+      isInArr: function (obj, arr) {
+        var result = null;
+        for (var i = arr.length - 1; i >= 0; i--) {
+          if (obj == arr[i]) {
+            result = i;
+            break;
+          }
+        };
+        return result;
+      },
+      //获得候选数字
+      getCandidate: function (row, col, box) {
+        var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9],
+          haveSameNum = function (arrA, x) {
+            for (let i = 0; i < arrA.length; i++) {
+              if (arrA[i] == x) {
+                return true;
+              }
+            }
+          },
+          //合并行列数组
+          combine = function (a, b) {
+            for (var i in a) {
+              if (haveSameNum(b, a[i])) continue;
+              b.push(a[i]);
+            }
+            return b;
+          },
+          newArr = combine(combine(row, col), box);
+        //遍历当前行、列、所在宫的元素，排除相同元素
+        for (var k = newArr.length - 1; k >= 0; k--) {
+          var idx = this.isInArr(newArr[k], arr);
+          if (idx !== null) {
+            arr.splice(idx, 1);
+          }
+        };
+
+        return arr.length > 1 ? arr : arr[0];
+      },
+    };
+
+    let sudu = new Sudoku();
+    sudu.emptyStr = '.';
+    sudu.rowTableSize = 3;
+    sudu.init(demoArr);
+  </script>
+</body>
+
+</html>
