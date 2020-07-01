@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>marquee</title>
+</head>
+
+<body>
+  <code>
+    behavior默认为scroll
+    设定滚动的方式：
+    alternate： 表示在两端之间来回滚动。
+    scroll： 表示由一端滚动到另一端，会重复。
+    slide： 表示由一端滚动到另一端，不会重复。
+    <marquee behavior="scroll">behavior scroll</marquee>
+    <marquee behavior="slide"> behavior slide</marquee>
+  </code>
+  direction:默认为left;文本滚动方向，left、right、up、down
+  <marquee behavior="scroll" direction="up">direction up</marquee>
+  <marquee behavior="scroll" direction="right">direction right</marquee>
+  bgcolor
+  通过颜色名称或十六进制值设置背景颜色。
+  <marquee bgcolor="#f5f5dc">bgcolor #f5f5dc</marquee>
+  height
+  以像素或百分比值设置高度。
+  hspace
+  水平边距
+  对应margin-left margin-right
+  <marquee hspace="200px 100px">hspace</marquee>
+  loop:设置滚动次数
+  默认为-1表示连续滚动
+  <marquee loop="2">loop</marquee>
+  scrollamount
+  设置每次滚动时移动的长度（以像素为单位）。默认值为 6。
+  <marquee scrollamount="34">scrollamount</marquee>
+  scrolldelay
+  设置每次滚动时的时间间隔（以毫秒为单位）。默认值为 85。请注意， 除非指定 truespeed 值，否则将忽略任何小于 60 的值，并改为使用 60。
+  <marquee scrolldelay="100">scrolldelay</marquee>
+  truespeed
+  默认情况下，会忽略小于60的scrolldelay值。如果存在truespeed，那些值不会被忽略。
+  <marquee scrolldelay="100">scrolldelay</marquee>
+  vspace
+  以像素或百分比值设置垂直边距。
+  width
+  以像素或百分比值设置宽度。
+  <marquee id="content" behavior="alternate" onbounce="onbounce()">onbounce事件</marquee>
+  <marquee loop="1" >content事件</marquee>
+  <marquee align="absbottom">align="absbottom"：绝对底部对齐（与g、p等字母的最下端对齐）。 </marquee>
+
+  <marquee align="absmiddle">align="absmiddle"： 绝对中央对齐。 </marquee>
+
+  <marquee align="baseline">align="baseline"： 底线对齐。 </marquee>
+
+  <marquee align="bottom">align="bottom"： 底部对齐（默认）。 </marquee>
+
+  <marquee align="left">align="left"： 左对齐。 </marquee>
+
+  <marquee align="middle">align="middle"： 中间对齐。 </marquee>
+
+  <marquee align="right">align="right"： 右对齐。 </marquee>
+
+  <marquee align="texttop">align="texttop"： 顶线对齐。 </marquee>
+
+  <marquee align="top">align="top"： 顶部对齐。 </marquee>
+
+  <marquee onmouseover="this.stop()" onmouseout="this.start()">事件 start 开始滚动 stop 停止滚动</marquee>
+  <script>
+    var queeElement = document.getElementById('content');
+    // 当 marquee 滚动到结尾时触发。它只能在 behavior 属性设置为 alternate 时触发。
+    queeElement.onbounce = function (e) {
+      console.log(this);
+      console.log(e);
+    }
+    //当 marquee 完成 loop 属性设置的值时触发。它只能在 loop 属性设置为大于 0 的某个数字时触发
+    function onbounce(e) {
+      console.log(this);
+      console.log(e);
+    }
+    // onstart 当 marquee 开始滚动时触发。
+    // start 开始滚动 stop 停止滚动
+  </script>
+
+</body>
+
+</html>
