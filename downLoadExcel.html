@@ -1516,6 +1516,8 @@
       oA.href = URL.createObjectURL(excelBlob);
       oA.download = fileName;
       oA.click();
+     
+      URL.revokeObjectURL(excelBlob);
     }
     reloadRender()
     /* window.onload = reloadRender();
